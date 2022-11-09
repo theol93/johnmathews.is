@@ -2,6 +2,7 @@ import dynamic from "next/dynamic"
 
 // https://www.npmjs.com/package/react-jupyter-notebook-viewer
 // https://codesandbox.io/s/nextjs-example-react-jupyter-notebook-viewer-lzjcb5?file=/pages/index.js:0-36
+// https://www.npmjs.com/package/react-jupyter-notebook <- alternative
 
 const Notebook = dynamic(() => import("../components/Notebook"), {
   ssr: false,
