@@ -1,6 +1,6 @@
 import PostsInYear from "@/components/PostsInYear"
 
-const PostsGroupedByYear = ({ posts }) => {
+const PostsGroupedByYear = ({ type, posts }) => {
   return (
     <>
       {Object.keys(posts)
@@ -12,7 +12,7 @@ const PostsGroupedByYear = ({ posts }) => {
                 {year}
               </div>
               <ul key={`${year}_list`}>
-                <PostsInYear year={year} posts={posts} />
+                <PostsInYear type={type} year={year} posts={posts} />
               </ul>
             </>
           )

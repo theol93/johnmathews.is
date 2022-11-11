@@ -27,12 +27,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const allPosts = await getAllFilesFrontMatter("blog")
-  const strCategory = params.category.join(".")
+  const strCategory = params.category.join(".").toLowerCase()
   const filteredPosts = allPosts.filter(function (post) {
     if (typeof post.category == "string") {
       post.category = post.category.split(" ")
     }
-    return post.draft !== true && post.category.map((c) => c.includes(strCategory))
+    return (
+      post.draft !== true &&
+      post.category.map((c) => c.toLowerCase().includes(strCategory)).includes(true)
+    )
   })
 
   // rss

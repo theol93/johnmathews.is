@@ -7,7 +7,7 @@ import formatDate from "@/lib/utils/formatDate"
 
 // className={`text-normal my-5 hover:underline lg:my-3  ${categoryTypes.toString()} ${isTechnical? 'hidden' : null}`}
 
-const PostsInYear = ({ year, posts }) => {
+const PostsInYear = ({ type, year, posts }) => {
   const [state, _] = useContext(AppContext)
   return posts[year].map((post) => {
     const { slug, date, title, category } = post
@@ -46,7 +46,7 @@ const PostsInYear = ({ year, posts }) => {
               <div>
                 <div className="font-serif text-2xl font-bold">
                   <Link
-                    href={`/posts/${slug}`}
+                    href={`/${type == "post" ? "posts" : "notebooks"}/${slug}`}
                     className="capitalize text-gray-900 hover:underline dark:text-gray-100"
                   >
                     {title}
