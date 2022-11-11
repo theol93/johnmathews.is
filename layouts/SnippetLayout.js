@@ -74,7 +74,7 @@ export default function SnippetLayout({
                 <div className="flex-grow">
                   <div className="mt-1 px-4 pt-2">
                     <Link
-                      href={`/blog/${slug}`}
+                      href={`/posts/${slug}`}
                       className="text-lg font-semibold text-gray-900 dark:text-gray-100"
                     >
                       {title}

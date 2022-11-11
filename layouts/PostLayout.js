@@ -12,7 +12,7 @@ import ScrollTop from "@/components/ScrollTop"
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `${siteMetadata.siteUrl}/blog/${slug}`
+    `${siteMetadata.siteUrl}/posts/${slug}`
   )}`
 
 export default function PostLayout({
@@ -55,7 +55,7 @@ export default function PostLayout({
         >
           <div id="LayoutWrapperForFlex" className="justify-between lg:flex lg:flex-row">
             <BlogSEO
-              url={`${siteMetadata.siteUrl}/blog/${slug}`}
+              url={`${siteMetadata.siteUrl}/posts/${slug}`}
               authorDetails={authorDetails}
               {...frontMatter}
             />

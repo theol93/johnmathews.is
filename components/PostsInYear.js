@@ -46,7 +46,7 @@ const PostsInYear = ({ year, posts }) => {
               <div>
                 <div className="font-serif text-2xl font-bold">
                   <Link
-                    href={`/blog/${slug}`}
+                    href={`/posts/${slug}`}
                     className="capitalize text-gray-900 hover:underline dark:text-gray-100"
                   >
                     {title}

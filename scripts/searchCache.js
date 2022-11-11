@@ -21,7 +21,7 @@ function getAllPosts() {
     const fileContents = fs.readFileSync(fullPath, "utf8")
     const matterResult = matter(fileContents)
     const markdownContent = fileContents.replace(/---(.|\n)*?---/, "")
-    const post_url = process.env.ROOT_URL + "/blog/" + id
+    const post_url = process.env.ROOT_URL + "/posts/" + id
     return {
       id,
       url: post_url,

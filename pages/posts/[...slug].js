@@ -153,7 +153,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
                       <div id="previousPost" className="my-3 2xl:my-5 ">
                         <div className="mb-1 2xl:mb-2"> Previous: </div>
                         <div className="line-clamp-2 hover:underline">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                          <Link href={`/posts/${prev.slug}`}>{prev.title}</Link>
                         </div>
                       </div>
                     )}
@@ -161,7 +161,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
                       <div id="nextPost" className="my-3 2xl:my-5">
                         <div className="mb-1 2xl:mb-2"> Next: </div>
                         <div className="line-clamp-2 hover:underline">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                          <Link href={`/posts/${next.slug}`}>{next.title}</Link>
                         </div>
                       </div>
                     )}
