@@ -5,8 +5,6 @@ import dynamic from "next/dynamic"
 // https://www.npmjs.com/package/react-jupyter-notebook <- alternative
 
 import fs from "fs"
-import PageTitle from "@/components/PageTitle"
-import generateRss from "@/lib/generate-rss"
 
 import {
   formatNotebookSlug,
@@ -14,23 +12,6 @@ import {
   getAllNotebooksFrontMatter,
   getNotebooks,
 } from "@/lib/notebooks"
-
-import Tag from "@/components/Tag"
-import Category from "@/components/Category"
-import Link from "@/components/Link"
-import MobileNav from "@/components/MobileNav"
-import ThemeSwitch from "@/components/ThemeSwitch"
-
-import Footer from "@/components/Footer"
-
-import Autocomplete from "@/components/AutoComplete"
-import "@algolia/autocomplete-theme-classic"
-
-import headerNavLinks from "@/data/headerNavLinks"
-import Logo from "@/data/logo.svg"
-import siteMetadata from "@/data/siteMetadata"
-
-const DEFAULT_LAYOUT = "PostLayout"
 
 const Notebook = dynamic(() => import("@/components/Notebook"), {
   ssr: false,
@@ -66,14 +47,18 @@ export async function getStaticProps({ params }) {
   //   fs.writeFileSync("./public/feed.xml", rss)
   // }
 
-  const slug = params.slug
-  // const filePath = `./data/notebooks/${params.slug.join("/")}.ipynb`
-  const filePath = `./data/notebooks/${slug}.ipynb`
-  const source = fs.readFileSync(filePath, "utf8")
+  const filePath = `./data/notebooks/${params.slug}.ipynb`
 
-  return { props: { source } }
+  console.log("--- !*!*!*! debug flag ")
+  const source = fs.readFileSync(filePath, "utf8")
+  console.log("--- debug source: ", source)
+
+  return { props: { source, filePath } }
 }
 
-export default function NotebookPage({ source, inputLanguage = "python" }) {
-  return <Notebook filePath={source} notebookInputLanguage={inputLanguage} />
+export default function NotebookPage({ source, filePath, inputLanguage = "python" }) {
+  // return source
+  // return <Notebook filePath={"[" + source + "]"} notebookInputLanguage={inputLanguage} />
+  // return <Notebook filePath={source} notebookInputLanguage={inputLanguage} />
+  return <Notebook filePath={filePath} />
 }
