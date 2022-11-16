@@ -1,4 +1,6 @@
 ---
+# put the actual notebook in `public/documents/notebooks/`
+
 title: Analysing a personal library
 slug: books
 date: "2017-02-01"
