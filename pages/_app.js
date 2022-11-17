@@ -26,6 +26,7 @@ const isSocket = process.env.SOCKET
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
+
   if (router.asPath == "/") {
     // landing page only
     return (
@@ -39,7 +40,7 @@ export default function App({ Component, pageProps }) {
         <KeyboardShortcuts />
       </ThemeProvider>
     )
-  } else if (router.query.slug !== undefined) {
+  } else if (router.route == "/posts/[...slug]") {
     // blog posts only
     return (
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
@@ -53,6 +54,7 @@ export default function App({ Component, pageProps }) {
       </ThemeProvider>
     )
   } else {
+    // all other pages - list views, categories, etc
     return (
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
         <Head>

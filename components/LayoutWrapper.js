@@ -33,7 +33,7 @@ const LayoutWrapper = ({ children }) => {
   }
 
   var bottomSection
-  if (router.asPath === "/posts") {
+  if (router.route == "/posts/[...slug]") {
     bottomSection = (
       <>
         <div className="mt-10 mb-10 w-36 border-b-8 border-double  border-gray-600 dark:border-gray-200 "></div>

@@ -56,36 +56,39 @@ export default function NotebookPage({ filePath, inputLanguage = "python" }) {
   // return source
   const DARK_MODE = false
   return (
-    <Notebook
-      filePath={filePath}
-      // filePath="/notebooks/sqlite.ipynb"
-      notebookInputLanguage={inputLanguage}
-      className="notebook-class"
-      // notebookInputLanguage="python"
-      // notebookOutputLanguage="python"
-      inputCodeDarkTheme={DARK_MODE}
-      outputDarkTheme={DARK_MODE}
-      inputMarkdownDarkTheme={DARK_MODE}
-      showInputLineNumbers={true}
-      showOutputLineNumbers={false}
-      outputTextClassName="output-text"
-      inputTextClassName="input-text"
-      outputBlockClassName="output-block"
-      outputImageClassName="output-image"
-      outputOuterClassName="output-outer"
-      inputOuterClassName="input-outer"
-      outputBorderClassName="output-border"
-      inputBorderClassName="input-border"
-      outputTableClassName="output-table"
-      withOnClick={true}
-      inputMarkdownBlockClassName="input-markdown-block"
-      inputCodeBlockClassName="input-code-block"
-      hideCodeBlocks={false}
-      hideMarkdownBlocks={false}
-      hideAllOutputs={false}
-      hideAllInputs={false}
-      remarkPlugins={[]}
-      rehypePlugins={[]}
-    />
+    <>
+      <div></div>
+      <Notebook
+        filePath={filePath}
+        // filePath="/notebooks/sqlite.ipynb"
+        notebookInputLanguage={inputLanguage}
+        className="notebook-class"
+        // notebookInputLanguage="python"
+        // notebookOutputLanguage="python"
+        inputCodeDarkTheme={DARK_MODE}
+        outputDarkTheme={DARK_MODE}
+        inputMarkdownDarkTheme={DARK_MODE}
+        showInputLineNumbers={true}
+        showOutputLineNumbers={false}
+        outputTextClassName="output-text"
+        inputTextClassName="input-text"
+        outputBlockClassName="output-block"
+        outputImageClassName="output-image"
+        outputOuterClassName="output-outer"
+        inputOuterClassName="input-outer"
+        outputBorderClassName="output-border"
+        inputBorderClassName="input-border"
+        outputTableClassName="output-table"
+        withOnClick={true}
+        inputMarkdownBlockClassName="input-markdown-block"
+        inputCodeBlockClassName="input-code-block"
+        hideCodeBlocks={false}
+        hideMarkdownBlocks={false}
+        hideAllOutputs={false}
+        hideAllInputs={false}
+        remarkPlugins={[]}
+        rehypePlugins={[]}
+      />
+    </>
   )
 }

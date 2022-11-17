@@ -9,21 +9,14 @@ import siteMetadata from "@/data/siteMetadata"
 import Comments from "@/components/comments"
 import ScrollTop from "@/components/ScrollTop"
 
-const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
-const discussUrl = (slug) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `${siteMetadata.siteUrl}/posts/${slug}`
-  )}`
+import path from "path"
+import dynamic from "next/dynamic"
+const Notebook = dynamic(() => import("@/components/Notebook"), {
+  ssr: false,
+})
 
-export default function PostLayout({
-  frontMatter,
-  authorDetails,
-  next,
-  prev,
-  titleImage,
-  children,
-}) {
-  const { slug, fileName, date, title, images, tags, category } = frontMatter
+export default function PostLayout({ frontMatter, authorDetails, children }) {
+  const { slug, title } = frontMatter
 
   var PostImage
   if (frontMatter.image) {
@@ -43,15 +36,38 @@ export default function PostLayout({
     PostSummary = null
   }
 
+  console.log("--- debug frontMatter: ", frontMatter)
+  console.log("--- debug PostSummary: ", PostSummary)
+  console.log("--- debug PostImage: ", PostImage)
+
+  function renderChildren() {
+    if (frontMatter.notebook) {
+      const filePath = path.join("/", "documents", "notebooks", `${slug}` + ".ipynb")
+      return (
+        <Notebook
+          filePath={filePath}
+          withOnClick={false}
+          inputCodeDarkTheme={true}
+          outputDarkTheme={true}
+          inputMarkdownDarkTheme={true}
+          showInputLineNumbers={true}
+          showOutputLineNumbers={false}
+        />
+      )
+    } else {
+      return children
+    }
+  }
+
   return (
     <>
       <div
         id="sectionContainerWrapsFooter"
-        className="mt-5 px-4 md:mx-auto lg:mt-16 xl:px-0 2xl:mt-32 2xl:w-5/6"
+        className="mt-5 min-h-screen px-4 md:mx-auto lg:mt-16 xl:px-0 2xl:mt-32 2xl:w-5/6"
       >
         <div
           id="layoutWrapperDoesntWrapFooter"
-          className="min-h-screen justify-between md:flex md:flex-col lg:ml-32"
+          className="z-10 min-h-screen justify-between md:flex md:flex-col lg:ml-32"
         >
           <div id="LayoutWrapperForFlex" className="justify-between lg:flex lg:flex-row">
             <BlogSEO
@@ -81,7 +97,7 @@ export default function PostLayout({
                       id="content"
                       className="prose-xl max-w-none pt-10 pb-8 dark:prose-dark dark:text-gray-100"
                     >
-                      {children}
+                      {renderChildren()}
                     </div>
                   </div>
                   <footer className="">

@@ -1,4 +1,7 @@
 import fs from "fs"
+import dynamic from "next/dynamic"
+
+import path from "path"
 import PageTitle from "@/components/PageTitle"
 import generateRss from "@/lib/generate-rss"
 
@@ -19,6 +22,10 @@ import "@algolia/autocomplete-theme-classic"
 import headerNavLinks from "@/data/headerNavLinks"
 import Logo from "@/data/logo.svg"
 import siteMetadata from "@/data/siteMetadata"
+
+const Notebook = dynamic(() => import("@/components/Notebook"), {
+  ssr: false,
+})
 
 const DEFAULT_LAYOUT = "PostLayout"
 
@@ -85,6 +92,45 @@ export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
   const { date, category, image } = frontMatter
   const postDateTemplate = { year: "numeric", month: "long" }
+
+  function renderPost(props) {
+    return (
+      <>
+        <MDXLayoutRenderer
+          layout={frontMatter.layout || DEFAULT_LAYOUT}
+          titleImage={image}
+          toc={toc}
+          mdxSource={mdxSource}
+          frontMatter={frontMatter}
+          authorDetails={authorDetails}
+          prev={prev}
+          next={next}
+        />
+      </>
+    )
+  }
+
+  function underConstruction(props) {
+    return (
+      <>
+        <div className="mt-24 text-center">
+          <PageTitle>
+            Under Construction{" "}
+            <span role="img" aria-label="roadwork sign">
+              🚧
+            </span>
+          </PageTitle>
+        </div>
+      </>
+    )
+  }
+
+  let postContent
+  if (frontMatter.draft !== true) {
+    postContent = renderPost()
+  } else {
+    postContent = underConstruction()
+  }
 
   return (
     <div className="mt-5 px-4 md:mx-auto lg:mx-5 lg:mt-16 xl:px-0 2xl:mx-32 2xl:mt-32 2xl:w-5/6">
@@ -174,27 +220,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
       </div>
 
       <div id="main" className="w-full lg:ml-32 lg:pr-32 2xl:-mt-32 2xl:pr-0">
-        {frontMatter.draft !== true ? (
-          <MDXLayoutRenderer
-            layout={frontMatter.layout || DEFAULT_LAYOUT}
-            titleImage={image}
-            toc={toc}
-            mdxSource={mdxSource}
-            frontMatter={frontMatter}
-            authorDetails={authorDetails}
-            prev={prev}
-            next={next}
-          />
-        ) : (
-          <div className="mt-24 text-center">
-            <PageTitle>
-              Under Construction{" "}
-              <span role="img" aria-label="roadwork sign">
-                🚧
-              </span>
-            </PageTitle>
-          </div>
-        )}
+        {postContent}
       </div>
     </div>
   )
